@@ -1903,6 +1903,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b21bfbe7f1e474b4ea831763058cb9fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1220491872
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1220491873}
+  m_Layer: 0
+  m_Name: Equipment Generator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1220491873
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1220491872}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 347.7248, y: 268.3832, z: 0.9256898}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1289435014
 GameObject:
   m_ObjectHideFlags: 0
@@ -3380,3 +3411,4 @@ SceneRoots:
   - {fileID: 49629804}
   - {fileID: 1952632339}
   - {fileID: 931747125}
+  - {fileID: 1220491873}

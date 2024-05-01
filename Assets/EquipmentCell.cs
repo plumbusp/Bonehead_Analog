@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using TMPro;
 using UnityEngine;
 
 public class EquipmentCell : MonoBehaviour
 {
     [SerializeField] private Sprite _equipmenSprite;
+    [SerializeField] private Image _image;
     [SerializeField] private TMP_Text _statsText;
     public void UpdateItem(IEquipmentItem item)
     {
