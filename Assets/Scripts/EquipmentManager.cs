@@ -5,6 +5,7 @@ using UnityEngine;
 public class EquipmentManager : MonoBehaviour
 {
     [SerializeField] private StablePlayerController _character;
+    [SerializeField] private Wallet _wallet;
 
     [Header("Equipment Related Objects")]
     [SerializeField] private CommonEquipmentInfo _equipmentInfo;
@@ -14,11 +15,13 @@ public class EquipmentManager : MonoBehaviour
     [SerializeField] private GameObject _popUp;
     private EquipmentDigger _equipmentDigger;
 
+    private bool _IsPopUpOpened;
+
     private void Start()
     {
         _equipmentDigger = _popUp.GetComponentInChildren<EquipmentDigger>();
         _equipmentGenerator.Initialize(_equipmentInfo);
-        _equipmentDigger.Initialize(_equipmentGenerator, _equipmentInventory, _equipmentInfo);
+        _equipmentDigger.Initialize(_equipmentGenerator, _equipmentInventory, _equipmentInfo, _wallet);
 
         _character.OnCharacterClick += OpenNewPopUp;
         _equipmentDigger.OnChoiceMade += ClosePopUp;
@@ -32,13 +35,17 @@ public class EquipmentManager : MonoBehaviour
 
     public void OpenNewPopUp()
     {
+        if (_IsPopUpOpened)
+            return;
         //TO-DO Make Animations
+        _IsPopUpOpened = true;
         _popUp.SetActive(true);
         _equipmentDigger.Dig();
     }
 
     private void ClosePopUp()
     {
+        _IsPopUpOpened = false;
         _popUp.SetActive(false);
     }
 }

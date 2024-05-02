@@ -13,16 +13,19 @@ public class EquipmentDigger : MonoBehaviour
     private EquipmentInventory _equipmentInventory;
     private CommonEquipmentInfo _equipmentInfo;
 
+    private Wallet _wallet;
+
     private Coroutine _coroutine;
 
-    private IEquipmentItem newItem = null;
-    private IEquipmentItem currentItem = null;
+    private IEquipmentItem _newItem = null;
+    private IEquipmentItem _currentItem = null;
 
-    public void Initialize(EquipmentGenerator equipmentGenerator, EquipmentInventory equipmentInventory, CommonEquipmentInfo equipmentInfo)
+    public void Initialize(EquipmentGenerator equipmentGenerator, EquipmentInventory equipmentInventory, CommonEquipmentInfo equipmentInfo, Wallet wallet)
     {
         _equipmentGenerator = equipmentGenerator;
         _equipmentInventory = equipmentInventory;
         _equipmentInfo = equipmentInfo;
+        _wallet = wallet;
     }
     // Calls generation logic
     public void Dig()
@@ -38,15 +41,15 @@ public class EquipmentDigger : MonoBehaviour
         //Generaing new Item
         while (true)
         {
-            if (_equipmentGenerator.TryGenerateItem(out newItem))
+            if (_equipmentGenerator.TryGenerateItem(out _newItem))
             {
-                _newCell.InitializeItem(newItem);
-                Debug.Log("Generated Item is " + newItem);
+                _newCell.InitializeItem(_newItem);
+                Debug.Log("Generated Item is " + _newItem);
                 break;
             }
         }
         //Trying to get current item of new item's equipment type
-        if (_equipmentInventory.TryGetCurrentItem(newItem, out IEquipmentItem currentItem))
+        if (_equipmentInventory.TryGetCurrentItem(_newItem, out IEquipmentItem currentItem))
         {
             _oldCell.InitializeItem(currentItem);
         }
@@ -61,23 +64,32 @@ public class EquipmentDigger : MonoBehaviour
 
     public void Equip()
     {
-        if (newItem == null)
+        if (_newItem == null)
             return;
 
-        _equipmentInventory.SetNewItem(newItem);
-        // TO-DO Sell current item
-        newItem = null;
-        currentItem = null;
+        _equipmentInventory.SetNewItem(_newItem);
+
+        //Sell current item
+        if(_currentItem != null)
+        {
+            int currentItemCost = _currentItem.Defence + _currentItem.Attack + _currentItem.HPIncrease;
+            _wallet.AddMoney(currentItemCost);
+        }
+
+        _currentItem = _newItem;
+        _newItem = null;
         OnChoiceMade?.Invoke();
     }
     public void Drop()
     {
-        if (newItem == null)
+        if (_newItem == null)
             return;
 
-        // TO-DO Sell new item
-        newItem = null;
-        currentItem = null;
+        // Sell new item
+        int newItemCost = _newItem.Defence + _newItem.Attack + _newItem.HPIncrease;
+        _wallet.AddMoney(newItemCost);
+
+        _newItem = null;
         OnChoiceMade?.Invoke();
     }
 }

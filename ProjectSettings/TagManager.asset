@@ -13,8 +13,8 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
+  - Coin
+  - Ground
   - 
   - 
   - 
@@ -43,6 +43,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Character_1
+  - name: Character
     uniqueID: 2461958711
+    locked: 0
+  - name: Coin
+    uniqueID: 1910271529
     locked: 0

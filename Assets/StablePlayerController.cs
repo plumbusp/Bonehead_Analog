@@ -23,6 +23,7 @@ public class StablePlayerController : MonoBehaviour
     {
         ChangeAnimationState(PLAYER_JUMP);
         OnCharacterClick?.Invoke();
+        Debug.Log("Clicked");
     }
 
     public void ReturnToDefaultAnimation()
