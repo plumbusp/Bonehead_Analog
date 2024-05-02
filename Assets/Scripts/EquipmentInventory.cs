@@ -15,7 +15,7 @@ public class EquipmentInventory : MonoBehaviour
     public void SetNewItem(IEquipmentItem newItem)
     {
         SetNewItem((dynamic)newItem);
-        _weaponCell.UpdateItem(newItem);
+        _weaponCell.InitializeItem(newItem);
     }
     #region Methods to set new item
     private void SetWeaponItem(Weapon newWeapon) => _currentWeapon = newWeapon;

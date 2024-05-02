@@ -5,14 +5,16 @@ using UnityEngine;
 
 public class EquipmentGenerator : MonoBehaviour
 {
-    [SerializeField] private int _damageMaxValue;
-    [SerializeField] private int _defenceMaxValue;
-    [SerializeField] private int _HPMaxValue;
-
     [SerializeField] private int _singleValueMaxRepeat;
 
+    private CommonEquipmentInfo _equipmentInfo;
     private IEquipmentItem _lastGeneratedObject;
     private int _repeatingObjectCount;
+
+    public void Initialize(CommonEquipmentInfo equipmentInfo)
+    {
+        _equipmentInfo = equipmentInfo;
+    }
 
     /// <summary>
     /// Returns true if an element matching the conditions was generated, false otherwise.
@@ -28,26 +30,26 @@ public class EquipmentGenerator : MonoBehaviour
         switch (i)
         {
             case 0:
-                value = Random.Range(0, _damageMaxValue);
-                Weapon weapon = new Weapon(value);
-                if (RepeatedTooMuch(weapon))
+                value = Random.Range(0, _equipmentInfo.DamageMaxValue);
+                Weapon weapon = new Weapon(value, _equipmentInfo.WeaponSprite);
+                if (IsRepeatedTooMuch(weapon))
                     break;
                 newItem = weapon;
                 return true;
 
             case 1:
-                value = Random.Range(0, _defenceMaxValue);
-                Shield shield = new Shield(value);
-                if (RepeatedTooMuch(shield))
+                value = Random.Range(0, _equipmentInfo.DefenceMaxValue);
+                Shield shield = new Shield(value, _equipmentInfo.ShieldSprite);
+                if (IsRepeatedTooMuch(shield))
                     break;
 
                 newItem = shield;
                 return true;
 
             case 2:
-                value = Random.Range(0, _HPMaxValue);
-                Helmet helmet = new Helmet(value);
-                if (RepeatedTooMuch(helmet))
+                value = Random.Range(0, _equipmentInfo.HPMaxValue);
+                Helmet helmet = new Helmet(value, _equipmentInfo.HelmetSprite);
+                if (IsRepeatedTooMuch(helmet))
                     break;
 
                 newItem = helmet; 
@@ -59,7 +61,7 @@ public class EquipmentGenerator : MonoBehaviour
         }
         return false;
     }
-    private bool RepeatedTooMuch(IEquipmentItem newGeneratedObject)
+    private bool IsRepeatedTooMuch(IEquipmentItem newGeneratedObject)
     {
         _lastGeneratedObject = newGeneratedObject;
         if (_lastGeneratedObject.GetType() == newGeneratedObject.GetType())

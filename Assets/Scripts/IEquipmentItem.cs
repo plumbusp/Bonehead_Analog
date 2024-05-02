@@ -4,6 +4,7 @@ using UnityEngine;
 
 public interface IEquipmentItem
 {
+    public Sprite Sprite { get; }
     public int Defence
     {
         get

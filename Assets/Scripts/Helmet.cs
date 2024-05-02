@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class Helmet : IEquipmentItem
 {
+    public Sprite Sprite { get; private set; }
     public int HPIncrease { get; private set; }
-    public Helmet(int hPIncrease)
+
+    public Helmet(int hPIncrease, Sprite sprite)
     {
         HPIncrease = hPIncrease;
+        Sprite = sprite;
     }
 }
