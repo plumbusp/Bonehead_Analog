@@ -63,19 +63,26 @@ public class EquipmentGenerator : MonoBehaviour
     }
     private bool IsRepeatedTooMuch(IEquipmentItem newGeneratedObject)
     {
-        _lastGeneratedObject = newGeneratedObject;
-        if (_lastGeneratedObject.GetType() == newGeneratedObject.GetType())
+        if (_lastGeneratedObject !=null)
         {
-            if(_repeatingObjectCount >= _singleValueMaxRepeat)
+            if (_lastGeneratedObject.GetType() == newGeneratedObject.GetType())
             {
-                return true;
+                if (_repeatingObjectCount >= _singleValueMaxRepeat)
+                {
+                    return true;
+                }
+
+                _repeatingObjectCount++;
+                _lastGeneratedObject = newGeneratedObject;
+                return false;
             }
-            _repeatingObjectCount++;
+            _repeatingObjectCount = 0;
+            _lastGeneratedObject = newGeneratedObject;
             return false;
         }
         else
         {
-            _repeatingObjectCount = 0;
+            _lastGeneratedObject = newGeneratedObject;
             return false;
         }
     }

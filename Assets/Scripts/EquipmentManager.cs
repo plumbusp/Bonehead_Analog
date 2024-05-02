@@ -16,11 +16,21 @@ public class EquipmentManager : MonoBehaviour
         _equipmentDigger = _popUp.GetComponentInChildren<EquipmentDigger>();
         _equipmentGenerator.Initialize(_equipmentInfo);
         _equipmentDigger.Initialize(_equipmentGenerator, _equipmentInventory, _equipmentInfo);
+
+        _equipmentDigger.OnChoiceMade += OpenPopUp;
+    }
+    private void OnDisable()
+    {
+        _equipmentDigger.OnChoiceMade -= OpenPopUp;
     }
     public void OpenNewPopUp()
     {
         //TO-DO Make Animations
         _popUp.SetActive(true);
         _equipmentDigger.Dig();
+    }
+    private void OpenPopUp()
+    {
+        _popUp.SetActive(false);
     }
 }

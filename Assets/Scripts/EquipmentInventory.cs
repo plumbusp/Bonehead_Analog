@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
 
 public class EquipmentInventory : MonoBehaviour
@@ -14,13 +15,24 @@ public class EquipmentInventory : MonoBehaviour
 
     public void SetNewItem(IEquipmentItem newItem)
     {
-        SetNewItem((dynamic)newItem);
-        _weaponCell.InitializeItem(newItem);
+        SetItem((dynamic)newItem);
     }
     #region Methods to set new item
-    private void SetWeaponItem(Weapon newWeapon) => _currentWeapon = newWeapon;
-    private void SetWeaponItem(Shield newShield) => _currentShield = newShield;
-    private void SetWeaponItem(Helmet newHelmet) => _currentHelmet = newHelmet;
+    private void SetItem(Weapon newWeapon)
+    {
+        _weaponCell.InitializeItem(newWeapon);
+        _currentWeapon = newWeapon;
+    }
+    private void SetItem(Shield newShield)
+    {
+        _shieldCell.InitializeItem(newShield);
+        _currentShield = newShield;
+    }
+    private void SetItem(Helmet newHelmet)
+    {
+        _helmetCell.InitializeItem(newHelmet);
+        _currentHelmet = newHelmet;
+    }
     #endregion
 
     public bool TryGetCurrentItem(IEquipmentItem referenceItem, out IEquipmentItem currentItem) 

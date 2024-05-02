@@ -88,7 +88,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b21bfbe7f1e474b4ea831763058cb9fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _equipmenSprite: {fileID: 0}
+  _image: {fileID: 0}
   _statsText: {fileID: 0}
 --- !u!1 &4319156408683929859
 GameObject:
@@ -140,7 +140,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b21bfbe7f1e474b4ea831763058cb9fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _equipmenSprite: {fileID: 0}
+  _image: {fileID: 2475741661000578616}
   _statsText: {fileID: 1893225555510483250}
 --- !u!1 &8679789669685925239
 GameObject:
