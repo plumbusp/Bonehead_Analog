@@ -20,7 +20,8 @@ public class CoinsEffects : MonoBehaviour
     [Header("Coin Moving Upwards")]
     [SerializeField] private Transform _targetTransform;
     [SerializeField] private float _minDistance;
-    [SerializeField] private float _speed;
+    [SerializeField] private float _minSpeed;
+    [SerializeField] private float _maxSpeed;
 
 
     private WaitForSeconds _spawnDelaySeconds;
@@ -32,6 +33,9 @@ public class CoinsEffects : MonoBehaviour
 
     private void Start()
     {
+        _spawnDelaySeconds = new WaitForSeconds(_spawnDelay);
+        _groundTimeSeconds = new WaitForSeconds(_groundTime);
+
         // Initializing Queue of coins
         for (int i = 0; i < 100; i++)
         {
@@ -44,6 +48,12 @@ public class CoinsEffects : MonoBehaviour
 
     public IEnumerator SpawnFallingCoins(int coinAmount)
     {
+        if (_spawnedCoins.Count != 0) //If the spawned coins have not yet been processed
+        {
+            OnCoinsCameThrough?.Invoke(coinAmount); // process 
+            MoveCoinsToTarget();
+        }
+
         _spawnedCoins.Clear();
         Coin coin;
 
@@ -55,9 +65,9 @@ public class CoinsEffects : MonoBehaviour
             coin = _coinsPool.Dequeue();
 
             _spawnedCoins.Add(coin);
-            coin.gameObject.SetActive(true);
             coin.transform.position = _spawnTransform.position;
-            coin.Rigidbody.AddForce(_spawnPushForce);
+            coin.gameObject.SetActive(true);
+            coin.rb.AddForce(_spawnPushForce);
 
             _coinsPool.Enqueue(coin);
             yield return _spawnDelaySeconds;
@@ -70,14 +80,14 @@ public class CoinsEffects : MonoBehaviour
     private IEnumerator WaitAndAccrueCoins()
     {
         yield return _groundTimeSeconds;
+        MoveCoinsToTarget();
         OnCoinsCameThrough?.Invoke(_spawnedCoins.Count);
+    }
+    private void MoveCoinsToTarget()
+    {
         foreach (var coin in _spawnedCoins)
         {
-            coin.transform.position = Vector3.MoveTowards(coin.transform.position, _targetTransform.position, _speed);
-            if (Vector3.Distance(coin.transform.position, _targetTransform.position) <= _minDistance)
-            {
-                coin.gameObject.SetActive(false);
-            }
+            coin.MoveTowardsTarget(_targetTransform.position, UnityEngine.Random.Range(_minSpeed, _maxSpeed), _minDistance);
         }
     }
 

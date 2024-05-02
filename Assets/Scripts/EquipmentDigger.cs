@@ -49,9 +49,9 @@ public class EquipmentDigger : MonoBehaviour
             }
         }
         //Trying to get current item of new item's equipment type
-        if (_equipmentInventory.TryGetCurrentItem(_newItem, out IEquipmentItem currentItem))
+        if (_equipmentInventory.TryGetCurrentItem(_newItem, out _currentItem))
         {
-            _oldCell.InitializeItem(currentItem);
+            _oldCell.InitializeItem(_currentItem);
         }
         else
         {
@@ -76,7 +76,7 @@ public class EquipmentDigger : MonoBehaviour
             _wallet.AddMoney(currentItemCost);
         }
 
-        _currentItem = _newItem;
+        _currentItem = null;
         _newItem = null;
         OnChoiceMade?.Invoke();
     }

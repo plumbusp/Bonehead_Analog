@@ -13,6 +13,8 @@ public class Wallet: MonoBehaviour
     private void Start()
     {
         _coinsEffects.OnCoinsCameThrough += AddCoinsMethod;
+        _money = 0;
+        _text.text = _money.ToString();
     }
 
     private void OnDestroy()
@@ -44,7 +46,7 @@ public class Wallet: MonoBehaviour
     {
         for (int i = 0; i < amount; i++)
         {
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.05f);
             _money++;
             _text.text = _money.ToString();
         }
