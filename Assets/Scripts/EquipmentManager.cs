@@ -22,6 +22,7 @@ public class EquipmentManager : MonoBehaviour
         _equipmentDigger = _popUp.GetComponentInChildren<EquipmentDigger>();
         _equipmentGenerator.Initialize(_equipmentInfo);
         _equipmentDigger.Initialize(_equipmentGenerator, _equipmentInventory, _equipmentInfo, _wallet);
+        _equipmentInventory.Initialize(_equipmentInfo);
 
         _character.OnCharacterClick += OpenNewPopUp;
         _equipmentDigger.OnChoiceMade += ClosePopUp;

@@ -13,6 +13,16 @@ public class EquipmentInventory : MonoBehaviour
     private Shield _currentShield;
     private Helmet _currentHelmet;
 
+    private CommonEquipmentInfo _equipmentInfo;
+
+    public void Initialize(CommonEquipmentInfo equipmentInfo)
+    {
+        _equipmentInfo = equipmentInfo;
+        _weaponCell.InitializeEmptyItem(equipmentInfo.DefaultSprite, "No weapon");
+        _shieldCell.InitializeEmptyItem(equipmentInfo.DefaultSprite, "No shield");
+        _helmetCell.InitializeEmptyItem(equipmentInfo.DefaultSprite, "No helmet");
+    }
+
     public void SetNewItem(IEquipmentItem newItem)
     {
         SetItem((dynamic)newItem);
