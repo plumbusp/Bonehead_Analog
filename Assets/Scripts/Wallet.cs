@@ -24,7 +24,7 @@ public class Wallet: MonoBehaviour
 
     public void AddMoney(int money)
     {
-        StartCoroutine(_coinsEffects.SpawnFallingCoins(money));
+        _coinsEffects.SpawnFallingCoins(money);
         Debug.Log("Added " + money + " money");
     }
 

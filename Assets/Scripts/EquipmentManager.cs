@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EquipmentManager : MonoBehaviour
 {
-    [SerializeField] private StablePlayerController _character;
+    [SerializeField] private StablePlayerController _player;
     [SerializeField] private Wallet _wallet;
 
     [Header("Equipment Related Objects")]
@@ -24,13 +24,13 @@ public class EquipmentManager : MonoBehaviour
         _equipmentDigger.Initialize(_equipmentGenerator, _equipmentInventory, _equipmentInfo, _wallet);
         _equipmentInventory.Initialize(_equipmentInfo);
 
-        _character.OnCharacterClick += OpenNewPopUp;
+        _player.OnCharacterClick += OpenNewPopUp;
         _equipmentDigger.OnChoiceMade += ClosePopUp;
     }
 
     private void OnDisable()
     {
-        _character.OnCharacterClick -= OpenNewPopUp;
+        _player.OnCharacterClick -= OpenNewPopUp;
         _equipmentDigger.OnChoiceMade -= ClosePopUp;
     }
 
