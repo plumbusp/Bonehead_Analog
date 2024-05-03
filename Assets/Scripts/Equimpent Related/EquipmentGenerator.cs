@@ -16,6 +16,10 @@ public class EquipmentGenerator : MonoBehaviour
         _equipmentInfo = equipmentInfo;
     }
 
+    private void Start()
+    {
+        _repeatingObjectCount = 0;
+    }
     /// <summary>
     /// Returns true if an element matching the conditions was generated, false otherwise.
     /// </summary>
@@ -30,36 +34,35 @@ public class EquipmentGenerator : MonoBehaviour
         switch (i)
         {
             case 0:
-                value = Random.Range(0, _equipmentInfo.DamageMaxValue);
+                value = Random.Range(1, _equipmentInfo.DamageMaxValue);
                 Weapon weapon = new Weapon(value, _equipmentInfo.WeaponSprite);
                 if (IsRepeatedTooMuch(weapon))
-                    break;
+                    return false;
                 newItem = weapon;
                 return true;
 
             case 1:
-                value = Random.Range(0, _equipmentInfo.DefenceMaxValue);
+                value = Random.Range(1, _equipmentInfo.DefenceMaxValue);
                 Shield shield = new Shield(value, _equipmentInfo.ShieldSprite);
                 if (IsRepeatedTooMuch(shield))
-                    break;
+                    return false;
 
                 newItem = shield;
                 return true;
 
             case 2:
-                value = Random.Range(0, _equipmentInfo.HPMaxValue);
+                value = Random.Range(1, _equipmentInfo.HPMaxValue);
                 Helmet helmet = new Helmet(value, _equipmentInfo.HelmetSprite);
                 if (IsRepeatedTooMuch(helmet))
-                    break;
+                    return false;
 
                 newItem = helmet; 
                 return true;
 
             default: 
                 Debug.LogWarning("Can't generate item using the index " + i);
-                break;
+                return false;
         }
-        return false;
     }
     private bool IsRepeatedTooMuch(IEquipmentItem newGeneratedObject)
     {
@@ -67,13 +70,12 @@ public class EquipmentGenerator : MonoBehaviour
         {
             if (_lastGeneratedObject.GetType() == newGeneratedObject.GetType())
             {
+                _repeatingObjectCount++;
                 if (_repeatingObjectCount >= _singleValueMaxRepeat)
                 {
+                    Debug.Log("Too much!");
                     return true;
                 }
-
-                _repeatingObjectCount++;
-                _lastGeneratedObject = newGeneratedObject;
                 return false;
             }
             _repeatingObjectCount = 0;

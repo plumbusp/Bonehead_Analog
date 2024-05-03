@@ -6,7 +6,6 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Coin : MonoBehaviour
 {
-    public event Action<Coin> OnDesiredTargetAchieved;
     public Rigidbody2D rb;
 
     private Vector3 _targetPos;

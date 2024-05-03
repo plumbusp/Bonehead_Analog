@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
 
 public class EquipmentInventory : MonoBehaviour
@@ -18,9 +17,9 @@ public class EquipmentInventory : MonoBehaviour
     public void Initialize(CommonEquipmentInfo equipmentInfo)
     {
         _equipmentInfo = equipmentInfo;
-        _weaponCell.InitializeEmptyItem(equipmentInfo.DefaultSprite, "No weapon");
-        _shieldCell.InitializeEmptyItem(equipmentInfo.DefaultSprite, "No shield");
-        _helmetCell.InitializeEmptyItem(equipmentInfo.DefaultSprite, "No helmet");
+        _weaponCell.InitializeEmptyItem(equipmentInfo.DefaultSprite, "");
+        _shieldCell.InitializeEmptyItem(equipmentInfo.DefaultSprite, "");
+        _helmetCell.InitializeEmptyItem(equipmentInfo.DefaultSprite, "");
     }
 
     public void SetNewItem(IEquipmentItem newItem)

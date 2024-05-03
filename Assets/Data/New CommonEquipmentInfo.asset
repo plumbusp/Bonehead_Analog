@@ -19,4 +19,6 @@ MonoBehaviour:
   <DefenceMaxValue>k__BackingField: 15
   <HPMaxValue>k__BackingField: 15
   <DefaultSprite>k__BackingField: {fileID: 21300000, guid: 0fd287ff2b4a2624491cd19540241545, type: 3}
-  <DefaultStats>k__BackingField: none
+  <DefaultStats>k__BackingField: 
+  <ArrowAp>k__BackingField: {fileID: 21300000, guid: b6c0256dde714bc448b7233d81081341, type: 3}
+  <ArrowDown>k__BackingField: {fileID: 21300000, guid: 218a0cd7508a9ed40bb3eb869407728d, type: 3}

@@ -22,6 +22,9 @@ public class EquipmentDigger : MonoBehaviour
 
     public void Initialize(EquipmentGenerator equipmentGenerator, EquipmentInventory equipmentInventory, CommonEquipmentInfo equipmentInfo, Wallet wallet)
     {
+        _oldCell.Initialize(equipmentInfo);
+        _newCell.Initialize(equipmentInfo);
+
         _equipmentGenerator = equipmentGenerator;
         _equipmentInventory = equipmentInventory;
         _equipmentInfo = equipmentInfo;
@@ -30,38 +33,13 @@ public class EquipmentDigger : MonoBehaviour
     // Calls generation logic
     public void Dig()
     {
+        // To-Do comparesment
         if(_coroutine != null)
         {
             StopCoroutine(_coroutine);
         }
         _coroutine = StartCoroutine(DigCoroutine());
     }
-    private IEnumerator DigCoroutine()
-    {
-        //Generaing new Item
-        while (true)
-        {
-            if (_equipmentGenerator.TryGenerateItem(out _newItem))
-            {
-                _newCell.InitializeItem(_newItem);
-                Debug.Log("Generated Item is " + _newItem);
-                break;
-            }
-        }
-        //Trying to get current item of new item's equipment type
-        if (_equipmentInventory.TryGetCurrentItem(_newItem, out _currentItem))
-        {
-            _oldCell.InitializeItem(_currentItem);
-        }
-        else
-        {
-            _oldCell.InitializeEmptyItem(_equipmentInfo.DefaultSprite, _equipmentInfo.DefaultStats);
-        }
-            
-        yield return null;
-
-    }
-
     public void Equip()
     {
         if (_newItem == null)
@@ -70,7 +48,7 @@ public class EquipmentDigger : MonoBehaviour
         _equipmentInventory.SetNewItem(_newItem);
 
         //Sell current item
-        if(_currentItem != null)
+        if (_currentItem != null)
         {
             int currentItemCost = _currentItem.Defence + _currentItem.Attack + _currentItem.HPIncrease;
             _wallet.AddMoney(currentItemCost);
@@ -91,5 +69,29 @@ public class EquipmentDigger : MonoBehaviour
 
         _newItem = null;
         OnChoiceMade?.Invoke();
+    }
+    private IEnumerator DigCoroutine()
+    {
+        //Generaing new Item
+        while (true)
+        {
+            if (_equipmentGenerator.TryGenerateItem(out _newItem))
+                break;
+        }
+
+        //Trying to get current item of new item's equipment type
+        if (_equipmentInventory.TryGetCurrentItem(_newItem, out _currentItem))
+        {
+            _oldCell.InitializeItem(_currentItem);
+            _newCell.InitializeItemWithComparison(_newItem, _currentItem);       //Comparing Two Items and initializing new Item
+        }
+        else
+        {
+            _oldCell.InitializeEmptyItem(_equipmentInfo.DefaultSprite, _equipmentInfo.DefaultStats);
+            _newCell.InitializeItem(_newItem); //  Initializing new Item
+        }
+
+        yield return null;
+
     }
 }
