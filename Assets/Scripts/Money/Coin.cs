@@ -17,7 +17,6 @@ public class Coin : MonoBehaviour
 
     public void Initialize()
     {
-        Debug.Log("Coin Start");
         rb = GetComponent<Rigidbody2D>();
     }
     private void Update()

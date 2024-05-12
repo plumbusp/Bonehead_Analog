@@ -2,13 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Shield : IEquipmentItem
+namespace Equipment
 {
-    public Sprite Sprite { get; private set; }
-    public int Defence { get; private set; }
-    public Shield(int defence, Sprite sprite)
+    public class Shield : IEquipmentItem
     {
-        Defence = defence;
-        Sprite = sprite;
+        public Sprite Sprite { get; private set; }
+        public int Defence { get; private set; }
+        public Shield(int defence, Sprite sprite)
+        {
+            Defence = defence;
+            Sprite = sprite;
+        }
     }
+
 }
+

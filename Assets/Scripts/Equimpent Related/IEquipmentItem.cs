@@ -2,27 +2,31 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IEquipmentItem
+namespace Equipment
 {
-    public Sprite Sprite { get; }
-    public int Defence
+    public interface IEquipmentItem
     {
-        get
+        public Sprite Sprite { get; }
+        public int Defence
         {
-            return 0;
+            get
+            {
+                return 0;
+            }
         }
-    }
-    public int Attack {
-        get 
-        { 
-            return 0;
-        }
-    }
-    public int HPIncrease 
-    {
-        get
+        public int Attack
         {
-            return 0;
+            get
+            {
+                return 0;
+            }
+        }
+        public int HPIncrease
+        {
+            get
+            {
+                return 0;
+            }
         }
     }
 }

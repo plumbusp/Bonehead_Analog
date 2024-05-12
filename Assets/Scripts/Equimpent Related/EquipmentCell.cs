@@ -5,41 +5,54 @@ using TMPro;
 using UnityEngine;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 
-public class EquipmentCell : MonoBehaviour
+namespace Equipment
 {
-    [SerializeField] private Image _image;
-    [SerializeField] private TMP_Text _attackText;
-    [SerializeField] private TMP_Text _defenceText;
-    [SerializeField] private TMP_Text _HPText;
-
-    public virtual void InitializeEmptyItem(Sprite sprite, string stats)
+    public class EquipmentCell : MonoBehaviour
     {
-        _image.sprite = sprite;
+        [SerializeField] private Image _image;
+        [SerializeField] private TMP_Text _attackText;
+        [SerializeField] private TMP_Text _defenceText;
+        [SerializeField] private TMP_Text _HPText;
 
-        _attackText.text = stats;
-        _defenceText.text = stats;
-        _HPText.text = stats;
-    }
+        protected CommonEquipmentInfo _equipmentInfo;
 
-    public virtual void InitializeItem(IEquipmentItem item)
-    {
-        _image.sprite = item.Sprite;
-
-        _attackText.text = "";
-        _defenceText.text = "";
-        _HPText.text = "";
-
-        if (item.Attack >= 0)
+        public virtual void Initialize(CommonEquipmentInfo equipmentInfo)
         {
-            _attackText.text = $"Attack: {item.Attack} <br>";
+            _equipmentInfo = equipmentInfo;
+
+            _image.sprite = equipmentInfo.DefaultSprite;
+            _attackText.text = "";
+            _defenceText.text = "";
+            _HPText.text = "";
         }
-        if (item.Defence >= 0)
+
+        public virtual void InitializeItem(IEquipmentItem item)
         {
-            _defenceText.text += $"Defence: {item.Defence} <br>";
-        }
-        if (item.HPIncrease >= 0)
-        {
-            _HPText.text += $"HP: {item.HPIncrease}";
+            _attackText.text = "";
+            _defenceText.text = "";
+            _HPText.text = "";
+
+            if (item == null)
+            {
+                _image.sprite = _equipmentInfo.DefaultSprite;
+                return;
+            }
+
+            _image.sprite = item.Sprite;
+
+            if (item.Attack >= 0)
+            {
+                _attackText.text = $"Attack: {item.Attack} <br>";
+            }
+            if (item.Defence >= 0)
+            {
+                _defenceText.text += $"Defence: {item.Defence} <br>";
+            }
+            if (item.HPIncrease >= 0)
+            {
+                _HPText.text += $"HP: {item.HPIncrease}";
+            }
         }
     }
 }
+
